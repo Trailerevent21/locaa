@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "854478238499",
+    "project_id": "planning-with-ai-892ea",
+    "storage_bucket": "planning-with-ai-892ea.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854478238499:android:571d4b7cc5c135139d9296",
+        "android_client_info": {
+          "package_name": "com.locaa.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "854478238499-v81hbejsju5svoiii3hfs8p8bjmu2aes.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.locaa.app",
+            "certificate_hash": "0d1a2faa609f88b973f6cb3a6506b10756c38ddf"
+          }
+        },
+        {
+          "client_id": "854478238499-k1d4d80aiekpk6nf3htcbupjr3l8t4ee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBExheFj8zQcNmExp0gIheUuLmrbbiX7T8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "854478238499-k1d4d80aiekpk6nf3htcbupjr3l8t4ee.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
