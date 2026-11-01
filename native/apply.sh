@@ -19,3 +19,7 @@ if ! grep -q ScreenShareService "$M"; then
   sed -i 's#</application>#<service android:name=".ScreenShareService" android:exported="false" android:foregroundServiceType="mediaProjection"/></application>#' "$M"
 fi
 echo "Ekran paylasimi eklentisi eklendi: $PKG"
+G=android/app/build.gradle
+if ! grep -q "play-services-auth" "$G"; then
+  sed -i '/^dependencies {/a\    implementation "com.google.android.gms:play-services-auth:21.2.0"' "$G"
+fi
