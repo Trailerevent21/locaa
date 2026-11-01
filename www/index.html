@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Loca – Birlikte film izle</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#120a0e;--bg2:#1c1117;--card:#241620;--line:#3a2630;--text:#f4ece4;--mute:#a8969a;--gold:#d8b878;--gold2:#a8864a;--live:#e5586b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#120a0e}}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#3a1a2a 0%,transparent 60%),var(--bg);color:var(--text);font:400 16px/1.6 Manrope,system-ui,sans-serif;min-height:100vh}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;margin:0;font-weight:600;letter-spacing:.01em}
+button{font:inherit;cursor:pointer;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.logo{font:700 30px 'Cormorant Garamond',serif;color:var(--gold);letter-spacing:.04em}
+.nav-r{display:flex;gap:10px;align-items:center}
+.btn{border:1px solid var(--gold2);background:transparent;padding:10px 20px;border-radius:999px;transition:.2s}
+.btn:hover{background:rgba(216,184,120,.12)}
+.btn.fill{background:linear-gradient(135deg,#e6c98e,#b8934f);color:#1a0f12;border:0;font-weight:700}
+.btn.fill:hover{filter:brightness(1.08)}
+.hero{padding:34px 0 44px;max-width:760px}
+.hero h1{font-size:clamp(44px,8vw,88px);line-height:1;font-weight:700}
+.hero p{color:var(--mute);font-size:18px;max-width:520px;margin:18px 0 26px}
+.hero .row{display:flex;gap:12px;flex-wrap:wrap}
+.room{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;margin-bottom:56px}
+@media(max-width:900px){.room{grid-template-columns:1fr}}
+.stage{background:var(--bg2);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.screen{aspect-ratio:16/9;background:#000;position:relative}
+.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.bar{display:flex;gap:10px;padding:14px;border-top:1px solid var(--line);flex-wrap:wrap;align-items:center}
+.bar input{flex:1;min-width:180px;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:10px 16px;color:var(--text);font:inherit}
+.title{padding:16px 18px 4px}
+.title h2{font-size:28px}
+.title span{color:var(--mute);font-size:14px}
+.side{display:flex;flex-direction:column;gap:16px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px}
+.panel h3{font-size:22px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.live{font:700 12px Manrope;color:var(--live);display:flex;align-items:center;gap:6px}
+.live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--live);animation:p 1.6s infinite}
+@keyframes p{50%{opacity:.3}}
+.ppl{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.ppl li{display:flex;align-items:center;gap:12px}
+.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#1a0f12;background:linear-gradient(135deg,#e6c98e,#b8934f);border:2px solid transparent;transition:.15s}
+.av.talk{border-color:#fff;box-shadow:0 0 0 4px rgba(216,184,120,.35)}
+.ppl small{color:var(--mute);display:block;line-height:1.2}
+.meter{height:6px;border-radius:9px;background:var(--bg);overflow:hidden;margin:14px 0}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold2),var(--gold));transition:width .08s}
+.mic{width:100%;padding:12px;border-radius:14px}
+.mic.on{background:var(--live);border-color:var(--live);color:#fff}
+.note{font-size:13px;color:var(--mute);margin-top:10px}
+.chat{height:170px;overflow:auto;display:grid;gap:8px;align-content:start;margin-bottom:10px;font-size:14px}
+.chat b{color:var(--gold)}
+.chatin{display:flex;gap:8px}
+.chatin input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:9px 14px;color:var(--text);font:inherit}
+section h2{font-size:clamp(30px,4vw,44px);margin-bottom:6px}
+section>p{color:var(--mute);margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px;margin-bottom:56px}
+.poster{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card);text-align:left;padding:0;transition:transform .2s,border-color .2s}
+.poster:hover{transform:translateY(-4px);border-color:var(--gold2)}
+.art{aspect-ratio:2/3;display:flex;align-items:flex-end;padding:16px;font:700 28px/1 'Cormorant Garamond',serif}
+.poster div:last-child{padding:12px 14px;font-size:14px;color:var(--mute)}
+.poster strong{display:block;color:var(--text);font-size:15px}
+.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-bottom:56px}
+.svc .panel h3{font-size:24px}
+.svc p{color:var(--mute);margin:0 0 14px;font-size:15px}
+.tag{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--gold)}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--mute);font-size:14px}
+.br{background:var(--bg2);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.tabs{display:flex;gap:6px;padding:10px 10px 0;background:var(--bg);overflow-x:auto}
+.tab{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px 12px 0 0;background:var(--bg2);border:1px solid var(--line);border-bottom:0;font-size:13px;max-width:190px;white-space:nowrap;opacity:.65}
+.tab.on{opacity:1;color:var(--gold)}
+.tab span{overflow:hidden;text-overflow:ellipsis}.tab b{cursor:pointer;color:var(--mute)}
+.addr{display:flex;gap:6px;padding:10px;align-items:center;border-bottom:1px solid var(--line)}
+.ib{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:transparent;display:grid;place-items:center;flex:none}
+.ib:hover{border-color:var(--gold2)}
+.addr input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:9px 16px;color:var(--text);font:inherit}
+.vp{aspect-ratio:16/9;position:relative;background:#000}
+.vp iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+.start{position:absolute;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:16px;overflow:auto}
+.start h2{font-size:clamp(24px,4vw,38px);text-align:center}
+.tiles{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.tile{width:92px;text-align:center;font-size:13px;background:none;border:0;color:var(--text)}
+.tile i{display:grid;place-items:center;width:64px;height:64px;margin:0 auto 6px;border-radius:18px;font:700 28px 'Cormorant Garamond',serif;font-style:normal;color:#1a0f12}
+.hint{display:flex;gap:10px;justify-content:space-between;align-items:center;padding:10px 14px;font-size:13px;color:var(--mute);border-top:1px solid var(--line);flex-wrap:wrap}
+.hint a{color:var(--gold)}
+dialog{background:var(--card);color:var(--text);border:1px solid var(--gold2);border-radius:20px;padding:26px;width:min(380px,92vw)}
+dialog::backdrop{background:rgba(0,0,0,.7)}
+dialog h3{font-size:28px;margin-bottom:12px}
+dialog input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 14px;color:var(--text);font:inherit;margin-bottom:14px}
+.dr{display:flex;gap:10px;justify-content:flex-end}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--gold);color:#1a0f12;padding:10px 20px;border-radius:999px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}
+.toast.on{opacity:1}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><div class="logo">Loca</div><div class="nav-r"><button class="btn" id="join">Giriş yap</button><button class="btn fill" id="create">Oda aç</button></div></nav>
+
+<header class="hero">
+<h1>Filmi birlikte izleyin, sesli konuşun.</h1>
+<p>Odanı aç, tarayıcıdan istediğin videoyu aç, arkadaşlarını davet et ve sesli konuş.</p>
+<div class="row"><button class="btn fill" onclick="document.getElementById('salon').scrollIntoView({behavior:'smooth'})">Salona gir</button><button class="btn" id="inv">Arkadaşını davet et</button></div>
+</header>
+
+<div class="room" id="salon">
+<div style="grid-column:1/-1;margin-bottom:-6px;color:var(--mute)" id="rm">Oda: Akşam Seansı</div>
+<div class="br">
+<div class="tabs" id="tabs"></div>
+<div class="addr"><button class="ib" id="bk" aria-label="Geri">&#8592;</button><button class="ib" id="rl" aria-label="Yenile">&#8635;</button><button class="ib" id="hm" aria-label="Ana sayfa">&#8962;</button>
+<input id="url" placeholder="Bağlantı yapıştır veya ara" aria-label="Adres çubuğu"><button class="btn fill" id="go">Git</button><button class="ib" id="fs" aria-label="Tam ekran">&#9974;</button></div>
+<div class="vp" id="vp"></div>
+<div class="hint"><span id="hn">Sayfa boş görünüyorsa site siteye gömülmeye izin vermiyor.</span><a href="#" id="ext" target="_blank" rel="noopener">Yeni sekmede aç</a></div>
+</div>
+<aside class="side">
+<div class="panel"><h3>Sesli sohbet <span class="live">CANLI</span></h3>
+<ul class="ppl" id="ppl"></ul>
+<div class="meter"><i id="lvl"></i></div>
+<button class="btn mic" id="mic">Mikrofonu aç</button>
+<p class="note" id="micnote">Mikrofon iznini tarayıcıdan onaylaman gerekir.</p></div>
+<div class="panel"><h3>Oda sohbeti</h3><div class="chat" id="chat"></div>
+<form class="chatin" id="cf" onsubmit="return false"><input id="ci" placeholder="Mesaj yaz" aria-label="Mesaj"><button class="btn fill" id="send" type="button">Gönder</button></form></div>
+</aside>
+</div>
+
+<section><h2>İzleme yolları</h2><p>Her platform için en doğru yol.</p>
+<div class="svc">
+<div class="panel"><h3>YouTube</h3><p>Siteye gömülür, odada doğrudan oynar.</p><span class="tag">Hazır</span></div>
+<div class="panel"><h3>Kendi videoların</h3><p>Hakkı sana ait filmleri yükle, odada oynat.</p><span class="tag">Sunucu gerekir</span></div>
+<div class="panel"><h3>Netflix</h3><p>Netflix siteye gömülemez. Herkes kendi hesabından açar, sesli sohbet Loca'da kalır.</p><button class="btn" id="nf">Netflix'i aç</button></div>
+</div></section>
+<dialog id="dl"><h3 id="dt"></h3><input id="di" autocomplete="off"><div class="dr"><button class="btn" id="dc">Vazgeç</button><button class="btn fill" id="dok">Tamam</button></div></dialog>
+<div class="toast" id="ts" role="status"></div>
+<footer>Loca · Birlikte izleme odaları</footer>
+</div>
+
+<script>
+var $=function(i){return document.getElementById(i)};
+function toast(t){var e=$('ts');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.remove('on')},2200)}
+var tabs=[],cur=0,room='Akşam Seansı',me='Raul';
+var quick=[["YouTube","Y","https://www.youtube.com/embed/aqz-KE-bpKQ","#e5586b"],["Wikipedia","W","https://en.m.wikipedia.org","#d8b878"],["Netflix","N","https://www.netflix.com","#b3203a"],["Google","G","https://www.google.com","#7aa2d8"]];
+function norm(v){v=v.trim();if(!v)return'';var m=v.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([\w-]{11})/);if(m)return'https://www.youtube.com/embed/'+m[1]+'?autoplay=1';
+if(/^https?:\/\//i.test(v))return v;if(/^[\w-]+(\.[\w-]+)+(\/.*)?$/.test(v))return'https://'+v;return''}
+function newTab(u){tabs.push({u:u||'',h:[]});cur=tabs.length-1;render()}
+function render(){var t=$('tabs');t.innerHTML='';tabs.forEach(function(x,i){var d=document.createElement('div');d.className='tab'+(i==cur?' on':'');var s=document.createElement('span');s.textContent=x.u?x.u.replace(/^https?:\/\/(www\.)?/,''):'Yeni sekme';s.onclick=function(){cur=i;render()};var c=document.createElement('b');c.textContent='×';c.onclick=function(){tabs.splice(i,1);if(!tabs.length)tabs.push({u:'',h:[]});cur=Math.min(cur,tabs.length-1);render()};d.appendChild(s);d.appendChild(c);t.appendChild(d)});
+var p=document.createElement('button');p.className='ib';p.textContent='+';p.setAttribute('aria-label','Yeni sekme');p.onclick=function(){newTab('')};t.appendChild(p);
+var x=tabs[cur],v=$('vp');v.innerHTML='';$('url').value=x.u;$('ext').href=x.u||'https://www.google.com';
+if(x.u){var f=document.createElement('iframe');f.src=x.u;f.title='Sayfa';f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;v.appendChild(f)}
+else{var st=document.createElement('div');st.className='start';st.innerHTML='<h2>Ne izlemek istersin?</h2><div class="tiles"></div>';var tl=st.querySelector('.tiles');
+quick.forEach(function(q){var b=document.createElement('button');b.className='tile';b.innerHTML='<i style="background:'+q[3]+'">'+q[1]+'</i>'+q[0];b.onclick=function(){go(q[2])};tl.appendChild(b)});v.appendChild(st)}}
+function go(u){var N=window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform();if(N&&u.indexOf('youtube.com/embed')<0){var B=Capacitor.Plugins&&Capacitor.Plugins.Browser;if(B)B.open({url:u});else window.open(u,'_blank');return}var x=tabs[cur];if(x.u)x.h.push(x.u);x.u=u;render();say('Loca','Açıldı: '+u.replace(/^https?:\/\/(www\.)?/,'').slice(0,40))}
+function submit(){var raw=$('url').value,u=norm(raw);if(u)go(u);else if(raw.trim()){window.open('https://www.google.com/search?q='+encodeURIComponent(raw.trim()),'_blank','noopener');toast('Arama yeni sekmede açıldı. Bulduğun bağlantıyı buraya yapıştır.')}}
+$('go').onclick=submit;$('url').onkeydown=function(e){if(e.key==='Enter')submit()};
+$('bk').onclick=function(){var x=tabs[cur];if(x.h.length){x.u=x.h.pop();render()}else{x.u='';render()}};
+$('hm').onclick=function(){tabs[cur].u='';render()};
+$('rl').onclick=function(){render()};
+$('fs').onclick=function(){var e=$('vp');if(e.requestFullscreen)e.requestFullscreen().catch(function(){toast('Tam ekran açılamadı')});else toast('Tam ekran desteklenmiyor')};
+$('nf').onclick=function(){window.open('https://www.netflix.com','_blank','noopener');toast('Netflix yeni sekmede açıldı')};
+newTab('https://www.youtube.com/embed/aqz-KE-bpKQ');
+var dlg=$('dl'),dcb=null;
+function ask(t,ph,val,cb){$('dt').textContent=t;$('di').placeholder=ph;$('di').value=val||'';dcb=cb;if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','');$('di').focus()}
+$('dc').onclick=function(){dlg.close()};
+$('dok').onclick=function(){var v=$('di').value.trim();if(v&&dcb)dcb(v);dlg.close()};
+$('di').onkeydown=function(e){if(e.key==='Enter')$('dok').click()};
+$('join').onclick=function(){ask('Giriş yap','Adın','',function(v){me=v;var el=$('nm0');if(el)el.textContent=v+' (sen)';$('join').textContent=v;toast('Hoş geldin, '+v)})};
+$('create').onclick=function(){ask('Yeni oda aç','Oda adı','',function(v){room=v;$('rm').textContent='Oda: '+v;say('Loca','Oda açıldı: '+v);toast('Oda hazır. Davet bağlantısını kopyalayabilirsin.')})};
+$('inv').onclick=function(){var l=location.href.split('#')[0]+'#'+encodeURIComponent(room);var ok=function(){toast('Davet bağlantısı kopyalandı')};
+try{navigator.clipboard.writeText(l).then(ok,function(){ask('Davet bağlantısı','',l,function(){})})}catch(e){ask('Davet bağlantısı','',l,function(){})}};
+var people=[["R","Raul"],["A","Aysel"],["E","Elvin"],["N","Nigar"]];
+var ul=document.getElementById('ppl');
+people.forEach(function(p,i){var l=document.createElement('li');l.innerHTML='<div class="av" id="av'+i+'">'+p[0]+'</div><div><span id="nm'+i+'">'+p[1]+(i==0?' (sen)':'')+'</span><small>'+(i==0?'Mikrofon kapalı':'Odada')+'</small></div>';ul.appendChild(l)});
+var chat=document.getElementById('chat');
+function say(n,m){var d=document.createElement('div');var b=document.createElement('b');b.textContent=n+': ';d.appendChild(b);d.appendChild(document.createTextNode(m));chat.appendChild(d);chat.scrollTop=chat.scrollHeight}
+say('Aysel','Başlıyoruz mu?');
+function sendMsg(){var i=document.getElementById('ci');if(i.value.trim()){say('Sen',i.value);i.value=''}}
+document.getElementById('send').onclick=sendMsg;
+document.getElementById('ci').onkeydown=function(e){if(e.key==='Enter')sendMsg()};
+var stream=null,ctx=null,raf=null,mic=document.getElementById('mic'),note=document.getElementById('micnote');
+mic.onclick=function(){
+if(stream){stream.getTracks().forEach(function(t){t.stop()});stream=null;cancelAnimationFrame(raf);mic.textContent='Mikrofonu aç';mic.classList.remove('on');document.getElementById('lvl').style.width='0';document.getElementById('av0').classList.remove('talk');return}
+try{navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){stream=s;ctx=new (window.AudioContext||window.webkitAudioContext)();var a=ctx.createAnalyser();a.fftSize=256;ctx.createMediaStreamSource(s).connect(a);var d=new Uint8Array(a.frequencyBinCount);
+mic.textContent='Mikrofonu kapat';mic.classList.add('on');note.textContent='Mikrofon açık. Çubuk sesini gösterir.';
+(function loop(){a.getByteFrequencyData(d);var v=d.reduce(function(x,y){return x+y},0)/d.length;document.getElementById('lvl').style.width=Math.min(100,v*2.2)+'%';document.getElementById('av0').classList.toggle('talk',v>18);raf=requestAnimationFrame(loop)})()
+}).catch(function(){note.textContent='Mikrofona erişilemedi. Tarayıcı ayarlarından izin ver.'})}catch(e){note.textContent='Bu tarayıcı mikrofonu desteklemiyor.'}};
+
+</script>
+</body>
+</html>
