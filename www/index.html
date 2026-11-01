@@ -86,7 +86,7 @@ input{background:var(--pan2);border:1px solid var(--line);border-radius:12px;pad
 .hn{color:#ffd400;font-weight:700}
 .crown{position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:22px;height:22px;z-index:2;filter:drop-shadow(0 1px 2px #000)}
 .msg .crown{position:static;transform:none;width:13px;height:13px;vertical-align:-2px;margin-right:3px}
-.stage video{object-fit:contain;background:#000}
+.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
 @media(prefers-reduced-motion:reduce){.glint{animation:none}}
 </style>
 </head>
@@ -123,9 +123,9 @@ input{background:var(--pan2);border:1px solid var(--line);border-radius:12px;pad
       <div id="list"></div>
     </section>
     <section id="room" hidden>
-      <div class="rbar"><button id="back" class="pill" aria-label="Çık">Çık</button><b id="rname"></b><span id="rcnt" class="pill"></span></div>
+      <div class="rbar"><button id="back" class="pill" aria-label="Çık">Çık</button><b id="rname"></b><button id="vc" class="pill" hidden>🎤 Sese katıl</button><span id="rcnt" class="pill"></span></div>
       <div class="salon"><div class="tv" id="tv"><div class="stage" id="stage"></div><button id="fs" class="fsb" aria-label="Tam ekran"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M4 4h6v2H6v4H4zm10 0h6v6h-2V6h-4zM4 14h2v4h4v2H4zm14 0h2v6h-6v-2h4z"/></svg></button></div><div class="floor"><div class="seats" id="seats"></div></div></div>
-      <div class="row"><input id="link" placeholder="YouTube linkini yapıştır" autocomplete="off"><button id="go" class="btn sm">Aç</button></div>
+      <div class="row"><input id="link" placeholder="YouTube ya da .mp4 linkini yapıştır" autocomplete="off"><button id="go" class="btn sm">Aç</button></div>
       <div class="row" id="xtra" style="padding-top:0" hidden></div>
       <div class="chat" id="chat"></div>
       <form class="row" id="cf"><input id="ci" placeholder="Mesaj yaz" autocomplete="off" maxlength="300"><button class="btn sm">Gönder</button></form>
@@ -287,7 +287,7 @@ function setupRoomUI(isSolo){
 }
 async function leave(){
   unsubs.forEach(u=>u());unsubs=[];clearInterval(hb);
-  rtcStop();const had=room;room=null;$('#seats').innerHTML='';$('#tv').classList.remove('full');
+  rtcStop();voiceStop();$('#vc').hidden=true;const had=room;room=null;$('#seats').innerHTML='';$('#tv').classList.remove('full');
   if(had&&me&&db){
     try{
       const ref=db.collection('rooms').doc(had.id),d=await ref.get();
@@ -314,7 +314,7 @@ function onRoom(r){
   if(r.sharing!==lastShare){lastShare=r.sharing||null;
     if(r.sharing&&r.sharing!==me.uid)send(r.sharing,'hello');
     if(!r.sharing&&!stream)rtcStop(true);}
-  seats(r);extras(r);
+  seats(r);extras(r);voiceSync(r);
   if(r.cd&&r.cd.at!==lastCd&&r.cd.at>Date.now()-1500){lastCd=r.cd.at;countdown(r.cd.at);}
   if(r.sharing)return;
   if(r.video&&r.video!==curVid)mount(r.video,()=>applyState(r.state));
@@ -395,6 +395,7 @@ function rtcStop(reset){
 const flush=c=>{(c._q||[]).forEach(i=>c.addIceCandidate(i).catch(()=>{}));c._q=[];};
 const addIce=(c,i)=>c&&(c.remoteDescription?c.addIceCandidate(i).catch(()=>{}):(c._q=c._q||[]).push(i));
 async function sig(m){
+  if(m.type[0]==='v')return vsig(m);
   const d=JSON.parse(m.data||'{}');
   try{
     if(m.type==='hello'&&stream&&room.ownerId===me.uid){
@@ -422,7 +423,7 @@ function countdown(at){
 }
 function ytId(s){s=s.trim();const m=s.match(/(?:v=|youtu\.be\/|embed\/|shorts\/|live\/)([\w-]{11})/);return m?m[1]:(/^[\w-]{11}$/.test(s)?s:null);}
 $('#go').onclick=async()=>{
-  const id=ytId($('#link').value);if(!id)return toast('Geçerli bir YouTube linki yapıştır');
+  const raw=$('#link').value.trim(),id=/^https?:\/\/\S+\.(mp4|webm)(\?\S*)?$/i.test(raw)?raw:ytId(raw);if(!id)return toast('YouTube ya da .mp4/.webm linki yapıştır');
   if(room)await db.collection('rooms').doc(room.id).update({video:id,state:{playing:true,time:0,by:'',at:Date.now()}});
   else mount(id,()=>{});
   $('#link').value='';
@@ -433,6 +434,7 @@ function loadYT(cb){
   if(!document.getElementById('ytapi')){const s=document.createElement('script');s.id='ytapi';s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s);}
 }
 function mount(id,done){
+  if(/^https?:/.test(id)){curVid=id;return mountVideo(id,done);}
   curVid=id;
   loadYT(()=>{
     if(yt&&yt.loadVideoById){yt.loadVideoById(id);setTimeout(done,1200);return;}
@@ -455,6 +457,61 @@ function applyState(st){
   setTimeout(()=>applying=false,900);
 }
 
+// ---------- Direkt video ----------
+function mountVideo(u,done){
+  const g=$('#stage');delete g.dataset.nf;
+  g.innerHTML='<video id="dv" controls playsinline></video>';
+  const v=$('#dv');v.src=u;
+  v.onerror=()=>toast('Bu link oynatılamadı. Doğrudan .mp4/.webm linki olmalı.');
+  yt={getCurrentTime:()=>v.currentTime,seekTo:t=>{v.currentTime=t;},playVideo:()=>v.play().catch(()=>toast('Oynatmak için ▶ düğmesine bas')),pauseVideo:()=>v.pause(),destroy:()=>{v.removeAttribute('src');v.load();}};
+  v.onplay=()=>onYT({data:1});v.onpause=()=>onYT({data:2});
+  v.onloadedmetadata=()=>setTimeout(done,200);
+}
+// ---------- Sesli sohbet ----------
+let vst=null,vmt=false;const vp={},va={};
+const inV=r=>Object.entries(r.members||{}).filter(([,m])=>m.v&&Date.now()-m.t<STALE).map(([k])=>k);
+function drawVc(){$('#vc').textContent=!vst?'🎤 Sese katıl':(vmt?'🔇 Mikrofon kapalı':'🎤 Mikrofon açık');}
+$('#vc').onclick=async()=>{
+  if(!room)return;
+  if(vst){vmt=!vmt;vst.getAudioTracks().forEach(t=>t.enabled=!vmt);return drawVc();}
+  try{vst=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true}});}
+  catch(e){return toast('Mikrofon izni verilmedi');}
+  vmt=false;await db.collection('rooms').doc(room.id).update({['members.'+me.uid+'.v']:true}).catch(()=>toast('Sese katılınamadı'));
+  drawVc();
+};
+function vclose(k){if(vp[k])vp[k].close();delete vp[k];if(va[k]){va[k].srcObject=null;delete va[k];}}
+function voiceStop(){
+  if(vst){vst.getTracks().forEach(t=>t.stop());vst=null;}
+  Object.keys(vp).forEach(vclose);drawVc();
+}
+function voiceSync(r){
+  $('#vc').hidden=false;if(!vst)return;
+  const ids=inV(r).filter(k=>k!==me.uid);
+  Object.keys(vp).filter(k=>!ids.includes(k)).forEach(vclose);
+  ids.forEach(k=>{if(!vp[k]&&me.uid<k)vcall(k);});
+}
+function vmk(k){
+  if(vp[k])vp[k].close();
+  const c=vp[k]=new RTCPeerConnection(ICE);
+  vst.getTracks().forEach(t=>c.addTrack(t,vst));
+  c.onicecandidate=e=>e.candidate&&send(k,'vi',e.candidate.toJSON());
+  c.ontrack=e=>{let a=va[k];if(!a){a=va[k]=new Audio();a.autoplay=true;}a.srcObject=e.streams[0];a.play().catch(()=>{});};
+  return c;
+}
+async function vcall(k){
+  const c=vmk(k);
+  await c.setLocalDescription(await c.createOffer());
+  send(k,'vo',{type:c.localDescription.type,sdp:c.localDescription.sdp});
+}
+async function vsig(m){
+  if(!vst)return;
+  const d=JSON.parse(m.data||'{}');
+  try{
+    if(m.type==='vo'){const c=vmk(m.from);await c.setRemoteDescription(d);flush(c);await c.setLocalDescription(await c.createAnswer());send(m.from,'va',{type:c.localDescription.type,sdp:c.localDescription.sdp});}
+    else if(m.type==='va'&&vp[m.from]){await vp[m.from].setRemoteDescription(d);flush(vp[m.from]);}
+    else if(m.type==='vi')addIce(vp[m.from],d);
+  }catch(e){}
+}
 // ---------- Sohbet ----------
 function drawChat(ms){
   const c=$('#chat'),o=room&&room.ownerId;
