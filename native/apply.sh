@@ -23,3 +23,6 @@ G=android/app/build.gradle
 if ! grep -q "play-services-auth" "$G"; then
   sed -i '/^dependencies {/a\    implementation "com.google.android.gms:play-services-auth:21.2.0"' "$G"
 fi
+if ! grep -q RECORD_AUDIO "$M"; then
+  sed -i 's#<application#<uses-permission android:name="android.permission.RECORD_AUDIO"/><uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/><application#' "$M"
+fi
