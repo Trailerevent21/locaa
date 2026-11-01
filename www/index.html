@@ -2,192 +2,470 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Loca – Birlikte film izle</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0a14">
+<title>Loca</title>
 <style>
-:root{--bg:#120a0e;--bg2:#1c1117;--card:#241620;--line:#3a2630;--text:#f4ece4;--mute:#a8969a;--gold:#d8b878;--gold2:#a8864a;--live:#e5586b;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#120a0e}}
-*,*::before,*::after{box-sizing:inherit}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#3a1a2a 0%,transparent 60%),var(--bg);color:var(--text);font:400 16px/1.6 Manrope,system-ui,sans-serif;min-height:100vh}
-h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;margin:0;font-weight:600;letter-spacing:.01em}
-button{font:inherit;cursor:pointer;color:inherit}
-:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.wrap{max-width:1180px;margin:0 auto;padding:0 22px}
-nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
-.logo{font:700 30px 'Cormorant Garamond',serif;color:var(--gold);letter-spacing:.04em}
-.nav-r{display:flex;gap:10px;align-items:center}
-.btn{border:1px solid var(--gold2);background:transparent;padding:10px 20px;border-radius:999px;transition:.2s}
-.btn:hover{background:rgba(216,184,120,.12)}
-.btn.fill{background:linear-gradient(135deg,#e6c98e,#b8934f);color:#1a0f12;border:0;font-weight:700}
-.btn.fill:hover{filter:brightness(1.08)}
-.hero{padding:34px 0 44px;max-width:760px}
-.hero h1{font-size:clamp(44px,8vw,88px);line-height:1;font-weight:700}
-.hero p{color:var(--mute);font-size:18px;max-width:520px;margin:18px 0 26px}
-.hero .row{display:flex;gap:12px;flex-wrap:wrap}
-.room{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;margin-bottom:56px}
-@media(max-width:900px){.room{grid-template-columns:1fr}}
-.stage{background:var(--bg2);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
-.screen{aspect-ratio:16/9;background:#000;position:relative}
-.screen iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.bar{display:flex;gap:10px;padding:14px;border-top:1px solid var(--line);flex-wrap:wrap;align-items:center}
-.bar input{flex:1;min-width:180px;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:10px 16px;color:var(--text);font:inherit}
-.title{padding:16px 18px 4px}
-.title h2{font-size:28px}
-.title span{color:var(--mute);font-size:14px}
-.side{display:flex;flex-direction:column;gap:16px}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px}
-.panel h3{font-size:22px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
-.live{font:700 12px Manrope;color:var(--live);display:flex;align-items:center;gap:6px}
-.live::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--live);animation:p 1.6s infinite}
-@keyframes p{50%{opacity:.3}}
-.ppl{list-style:none;margin:0;padding:0;display:grid;gap:10px}
-.ppl li{display:flex;align-items:center;gap:12px}
-.av{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#1a0f12;background:linear-gradient(135deg,#e6c98e,#b8934f);border:2px solid transparent;transition:.15s}
-.av.talk{border-color:#fff;box-shadow:0 0 0 4px rgba(216,184,120,.35)}
-.ppl small{color:var(--mute);display:block;line-height:1.2}
-.meter{height:6px;border-radius:9px;background:var(--bg);overflow:hidden;margin:14px 0}
-.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold2),var(--gold));transition:width .08s}
-.mic{width:100%;padding:12px;border-radius:14px}
-.mic.on{background:var(--live);border-color:var(--live);color:#fff}
-.note{font-size:13px;color:var(--mute);margin-top:10px}
-.chat{height:170px;overflow:auto;display:grid;gap:8px;align-content:start;margin-bottom:10px;font-size:14px}
-.chat b{color:var(--gold)}
-.chatin{display:flex;gap:8px}
-.chatin input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:9px 14px;color:var(--text);font:inherit}
-section h2{font-size:clamp(30px,4vw,44px);margin-bottom:6px}
-section>p{color:var(--mute);margin:0 0 22px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px;margin-bottom:56px}
-.poster{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card);text-align:left;padding:0;transition:transform .2s,border-color .2s}
-.poster:hover{transform:translateY(-4px);border-color:var(--gold2)}
-.art{aspect-ratio:2/3;display:flex;align-items:flex-end;padding:16px;font:700 28px/1 'Cormorant Garamond',serif}
-.poster div:last-child{padding:12px 14px;font-size:14px;color:var(--mute)}
-.poster strong{display:block;color:var(--text);font-size:15px}
-.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-bottom:56px}
-.svc .panel h3{font-size:24px}
-.svc p{color:var(--mute);margin:0 0 14px;font-size:15px}
-.tag{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--gold)}
-footer{border-top:1px solid var(--line);padding:26px 0 40px;color:var(--mute);font-size:14px}
-.br{background:var(--bg2);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5)}
-.tabs{display:flex;gap:6px;padding:10px 10px 0;background:var(--bg);overflow-x:auto}
-.tab{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px 12px 0 0;background:var(--bg2);border:1px solid var(--line);border-bottom:0;font-size:13px;max-width:190px;white-space:nowrap;opacity:.65}
-.tab.on{opacity:1;color:var(--gold)}
-.tab span{overflow:hidden;text-overflow:ellipsis}.tab b{cursor:pointer;color:var(--mute)}
-.addr{display:flex;gap:6px;padding:10px;align-items:center;border-bottom:1px solid var(--line)}
-.ib{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:transparent;display:grid;place-items:center;flex:none}
-.ib:hover{border-color:var(--gold2)}
-.addr input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:9px 16px;color:var(--text);font:inherit}
-.vp{aspect-ratio:16/9;position:relative;background:#000}
-.vp iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
-.start{position:absolute;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:16px;overflow:auto}
-.start h2{font-size:clamp(24px,4vw,38px);text-align:center}
-.tiles{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
-.tile{width:92px;text-align:center;font-size:13px;background:none;border:0;color:var(--text)}
-.tile i{display:grid;place-items:center;width:64px;height:64px;margin:0 auto 6px;border-radius:18px;font:700 28px 'Cormorant Garamond',serif;font-style:normal;color:#1a0f12}
-.hint{display:flex;gap:10px;justify-content:space-between;align-items:center;padding:10px 14px;font-size:13px;color:var(--mute);border-top:1px solid var(--line);flex-wrap:wrap}
-.hint a{color:var(--gold)}
-dialog{background:var(--card);color:var(--text);border:1px solid var(--gold2);border-radius:20px;padding:26px;width:min(380px,92vw)}
-dialog::backdrop{background:rgba(0,0,0,.7)}
-dialog h3{font-size:28px;margin-bottom:12px}
-dialog input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 14px;color:var(--text);font:inherit;margin-bottom:14px}
-.dr{display:flex;gap:10px;justify-content:flex-end}
-.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--gold);color:#1a0f12;padding:10px 20px;border-radius:999px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}
-.toast.on{opacity:1}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+:root{--bg:#0b0a14;--pan:#16142a;--pan2:#1e1b3a;--line:#2e2a58;--tx:#f3f0ff;--mut:#9a95c4;--gold:#e9c46a;--ice:#8be9fd;--ok:#22c55e;--no:#ef4444;--sat:env(safe-area-inset-top,0px);--sab:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);color:var(--tx);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--ice);outline-offset:2px}
+[hidden]{display:none!important}
+#app{display:flex;flex-direction:column;height:100%;padding-top:var(--sat)}
+header{display:flex;align-items:center;justify-content:space-between;padding:12px 18px}
+.brand{font:700 24px Georgia,"Times New Roman",serif;letter-spacing:.5px;color:var(--gold)}
+.pill{padding:8px 14px;border-radius:99px;background:var(--pan2);border:1px solid var(--line);font-weight:600;display:flex;align-items:center;gap:8px}
+.pill img{width:22px;height:22px;border-radius:50%}
+main{flex:1;overflow-y:auto;padding:0 18px 24px}
+.hero{text-align:center;padding:10px 0 22px}
+.hero svg{width:150px;height:150px;filter:drop-shadow(0 0 28px rgba(139,233,253,.35))}
+.glint{animation:gl 5s ease-in-out infinite}
+@keyframes gl{0%,70%,100%{opacity:.25}85%{opacity:1}}
+.hero h1{font:700 30px Georgia,serif;margin-top:6px}
+.hero p{color:var(--mut);margin-top:4px}
+.tiles{display:grid;gap:14px}
+.tile{display:flex;align-items:center;gap:16px;padding:18px;border-radius:20px;background:linear-gradient(135deg,var(--pan2),var(--pan));border:1px solid var(--line);text-align:left;width:100%}
+.tile:active{transform:scale(.98)}
+.ico{width:54px;height:54px;border-radius:15px;display:grid;place-items:center;flex:none}
+.tile b{font-size:17px;display:block}
+.tile small{color:var(--mut)}
+nav{display:flex;border-top:1px solid var(--line);background:var(--pan);padding-bottom:var(--sab)}
+nav button{flex:1;padding:12px 0 10px;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:12px;font-weight:600}
+nav button.on{color:var(--gold)}
+h2{font:700 22px Georgia,serif;margin:6px 0 4px}
+.sub{color:var(--mut);margin-bottom:14px}
+.btn{padding:12px 18px;border-radius:14px;font-weight:700;background:var(--gold);color:#1a1405;width:100%}
+.btn.alt{background:var(--pan2);color:var(--tx);border:1px solid var(--line)}
+.btn.sm{width:auto;padding:9px 14px}
+.room{display:flex;align-items:center;gap:14px;padding:14px;border-radius:16px;margin-bottom:10px;width:100%;text-align:left;background:var(--pan)}
+.room.pub{border:1.5px solid var(--ok)}
+.room.prv{border:1.5px solid var(--no)}
+.room .lk{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none}
+.pub .lk{background:rgba(34,197,94,.15);color:var(--ok)}
+.prv .lk{background:rgba(239,68,68,.15);color:var(--no)}
+.room b{display:block}
+.room small{color:var(--mut)}
+.cnt{margin-left:auto;font-weight:700;white-space:nowrap}
+.empty{text-align:center;color:var(--mut);padding:40px 10px}
+#room{display:flex;flex-direction:column;height:100%;margin:0 -18px -24px}#room>*{flex:none}#room>.chat{flex:1 0 140px}
+.rbar{display:flex;align-items:center;gap:10px;padding:4px 14px 10px}
+.rbar b{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stage{background:#000;aspect-ratio:16/9;width:100%;position:relative}
+.stage>div,.stage iframe{position:absolute;inset:0;width:100%;height:100%}
+.ph{display:grid;place-items:center;text-align:center;color:var(--mut);padding:20px}
+.row{display:flex;gap:8px;padding:10px 14px}
+input{background:var(--pan2);border:1px solid var(--line);border-radius:12px;padding:11px 13px;width:100%;min-width:0}
+.chat{flex:1;overflow-y:auto;padding:4px 14px;display:flex;flex-direction:column;gap:6px}
+.msg{max-width:85%;padding:8px 12px;border-radius:14px;background:var(--pan2);word-break:break-word}
+.msg.me{align-self:flex-end;background:#3a3270}
+.msg small{display:block;color:var(--mut);font-size:11px}
+#sheet,#dlg{position:fixed;inset:0;background:rgba(5,4,12,.72);display:flex;align-items:flex-end;z-index:20}
+.card{background:var(--pan);border-radius:24px 24px 0 0;border:1px solid var(--line);padding:20px 18px calc(18px + var(--sab));width:100%;display:grid;gap:10px}
+.card h3{font:700 20px Georgia,serif}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg button{padding:11px;border-radius:12px;border:1.5px solid var(--line);font-weight:700}
+.seg .g.on{border-color:var(--ok);color:var(--ok);background:rgba(34,197,94,.1)}
+.seg .r.on{border-color:var(--no);color:var(--no);background:rgba(239,68,68,.1)}
+#toast{position:fixed;left:50%;bottom:calc(86px + var(--sab));transform:translateX(-50%);background:var(--tx);color:#14112b;padding:10px 16px;border-radius:12px;font-weight:600;z-index:30;max-width:90%;text-align:center}
+.warn{background:rgba(239,68,68,.12);border:1px solid var(--no);padding:12px;border-radius:12px;margin-bottom:14px}
+#room{overflow-y:auto}.chat{min-height:140px}
+.salon{margin:0 12px;padding:14px 12px 10px;border-radius:22px;background:radial-gradient(120% 80% at 50% 0,#3a2a5c,#171330 70%);border:1px solid var(--line)}
+.tv{position:relative;border-radius:14px;padding:6px;background:#0a0814;box-shadow:0 0 40px rgba(233,196,106,.12)}
+.tv .stage{border-radius:8px;overflow:hidden}
+.tv.full{position:fixed;inset:0;z-index:25;background:#000;border-radius:0;padding:0;display:grid;place-items:center}
+.tv.full .stage{width:min(100vw,calc(100vh*1.7778));border-radius:0}
+.fsb{position:absolute;right:12px;top:12px;z-index:3;background:rgba(0,0,0,.55);border-radius:10px;padding:7px;display:grid}
+.floor{margin-top:12px;padding:12px 4px 4px;border-radius:50% 50% 14px 14px/26px 26px 14px 14px;background:linear-gradient(#2a1f45,#1d1636)}
+.seats{display:flex;flex-wrap:wrap;gap:10px 8px;justify-content:center}
+.seat{position:relative;width:62px;display:flex;flex-direction:column;align-items:center;gap:2px;padding-top:12px}
+.seat small{font-size:11px;max-width:62px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.av{width:44px;height:44px;border-radius:50%;background:var(--line);display:grid;place-items:center;overflow:hidden;font-weight:700;flex:none}
+.av img{width:100%;height:100%;object-fit:cover}.av.big{width:72px;height:72px;font-size:28px}
+.hn{color:#ffd400;font-weight:700}
+.crown{position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:22px;height:22px;z-index:2;filter:drop-shadow(0 1px 2px #000)}
+.msg .crown{position:static;transform:none;width:13px;height:13px;vertical-align:-2px;margin-right:3px}
+.stage video{object-fit:contain;background:#000}
+@media(prefers-reduced-motion:reduce){.glint{animation:none}}
 </style>
 </head>
 <body>
-<div class="wrap">
-<nav><div class="logo">Loca</div><div class="nav-r"><button class="btn" id="join">Giriş yap</button><button class="btn fill" id="create">Oda aç</button></div></nav>
-
-<header class="hero">
-<h1>Filmi birlikte izleyin, sesli konuşun.</h1>
-<p>Odanı aç, tarayıcıdan istediğin videoyu aç, arkadaşlarını davet et ve sesli konuş.</p>
-<div class="row"><button class="btn fill" onclick="document.getElementById('salon').scrollIntoView({behavior:'smooth'})">Salona gir</button><button class="btn" id="inv">Arkadaşını davet et</button></div>
-</header>
-
-<div class="room" id="salon">
-<div style="grid-column:1/-1;margin-bottom:-6px;color:var(--mute)" id="rm">Oda: Akşam Seansı</div>
-<div class="br">
-<div class="tabs" id="tabs"></div>
-<div class="addr"><button class="ib" id="bk" aria-label="Geri">&#8592;</button><button class="ib" id="rl" aria-label="Yenile">&#8635;</button><button class="ib" id="hm" aria-label="Ana sayfa">&#8962;</button>
-<input id="url" placeholder="Bağlantı yapıştır veya ara" aria-label="Adres çubuğu"><button class="btn fill" id="go">Git</button><button class="ib" id="fs" aria-label="Tam ekran">&#9974;</button></div>
-<div class="vp" id="vp"></div>
-<div class="hint"><span id="hn">Sayfa boş görünüyorsa site siteye gömülmeye izin vermiyor.</span><a href="#" id="ext" target="_blank" rel="noopener">Yeni sekmede aç</a></div>
+<div id="app">
+  <header><span class="brand">Loca</span><button id="auth" class="pill"></button></header>
+  <main>
+    <section id="home">
+      <div id="cfgwarn" class="warn" hidden>Firebase ayarı eksik. index.html içindeki FIREBASE_CONFIG alanını doldur.</div>
+      <div class="hero">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <defs><linearGradient id="d1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8fbff"/><stop offset="1" stop-color="#6ccbe8"/></linearGradient>
+          <linearGradient id="d2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8be9fd"/><stop offset="1" stop-color="#4b5fd6"/></linearGradient></defs>
+          <polygon points="30,18 90,18 112,46 60,108 8,46" fill="url(#d2)"/>
+          <polygon points="30,18 60,46 8,46" fill="url(#d1)" opacity=".9"/>
+          <polygon points="90,18 112,46 60,46" fill="url(#d1)" opacity=".6"/>
+          <polygon points="30,18 90,18 60,46" fill="#fff" opacity=".7"/>
+          <polygon points="8,46 60,46 60,108" fill="#2f3fa8" opacity=".45"/>
+          <polygon class="glint" points="60,46 112,46 60,108" fill="#fff" opacity=".25"/>
+        </svg>
+        <h1>Birlikte izle</h1>
+        <p>Bir kaynak seç, odanı kur ya da tek başına izle.</p>
+      </div>
+      <div class="tiles">
+        <button class="tile" data-src="youtube"><span class="ico" style="background:#ff1f1f"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span><span><b>YouTube</b><small>Birlikte senkron izle</small></span></button>
+        <button class="tile" data-src="google"><span class="ico" style="background:#fff"><svg width="30" height="30" viewBox="0 0 24 24"><path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.6h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.300 3-7.200z"/><path fill="#34A853" d="M12 22c2.700 0 5-.9 6.600-2.400l-3.200-2.500c-.9.600-2 1-3.400 1-2.600 0-4.800-1.800-5.600-4.100H3.100v2.600A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.400 14c-.2-.6-.3-1.300-.3-2s.1-1.400.3-2V7.400H3.100a10 10 0 0 0 0 9.200z"/><path fill="#EA4335" d="M12 5.900c1.500 0 2.800.5 3.800 1.500l2.800-2.800A10 10 0 0 0 3.100 7.400L6.400 10C7.200 7.700 9.400 5.900 12 5.900z"/></svg></span><span><b>Google</b><small>Video ara, linki odaya yapıştır</small></span></button>
+        <button class="tile" data-src="netflix"><span class="ico" style="background:#000;border:1px solid #333"><svg width="26" height="30" viewBox="0 0 24 24"><path fill="#e50914" d="M6 2h4l4 11V2h4v20h-4L10 11v11H6z"/></svg></span><span><b>Netflix</b><small>Kendi hesabınla, birlikte başlat</small></span></button>
+      </div>
+    </section>
+    <section id="servers" hidden>
+      <h2>Sunucular</h2>
+      <p class="sub">Açık odalar. En fazla 15 kişi katılabilir.</p>
+      <button id="mk" class="btn" style="margin-bottom:16px">Oda oluştur</button>
+      <div id="list"></div>
+    </section>
+    <section id="room" hidden>
+      <div class="rbar"><button id="back" class="pill" aria-label="Çık">Çık</button><b id="rname"></b><span id="rcnt" class="pill"></span></div>
+      <div class="salon"><div class="tv" id="tv"><div class="stage" id="stage"></div><button id="fs" class="fsb" aria-label="Tam ekran"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M4 4h6v2H6v4H4zm10 0h6v6h-2V6h-4zM4 14h2v4h4v2H4zm14 0h2v6h-6v-2h4z"/></svg></button></div><div class="floor"><div class="seats" id="seats"></div></div></div>
+      <div class="row"><input id="link" placeholder="YouTube linkini yapıştır" autocomplete="off"><button id="go" class="btn sm">Aç</button></div>
+      <div class="row" id="xtra" style="padding-top:0" hidden></div>
+      <div class="chat" id="chat"></div>
+      <form class="row" id="cf"><input id="ci" placeholder="Mesaj yaz" autocomplete="off" maxlength="300"><button class="btn sm">Gönder</button></form>
+    </section>
+  </main>
+  <nav id="tabs">
+    <button data-v="home" class="on"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3 2 12h3v8h5v-5h4v5h5v-8h3z"/></svg>Ana ekran</button>
+    <button data-v="servers"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v6H4zm0 10h16v6H4zM7 7h2v.01H7zm0 10h2v.01H7z"/></svg>Sunucular</button>
+  </nav>
 </div>
-<aside class="side">
-<div class="panel"><h3>Sesli sohbet <span class="live">CANLI</span></h3>
-<ul class="ppl" id="ppl"></ul>
-<div class="meter"><i id="lvl"></i></div>
-<button class="btn mic" id="mic">Mikrofonu aç</button>
-<p class="note" id="micnote">Mikrofon iznini tarayıcıdan onaylaman gerekir.</p></div>
-<div class="panel"><h3>Oda sohbeti</h3><div class="chat" id="chat"></div>
-<form class="chatin" id="cf" onsubmit="return false"><input id="ci" placeholder="Mesaj yaz" aria-label="Mesaj"><button class="btn fill" id="send" type="button">Gönder</button></form></div>
-</aside>
-</div>
+<div id="sheet" hidden></div>
+<div id="dlg" hidden></div>
+<div id="toast" hidden></div>
 
-<section><h2>İzleme yolları</h2><p>Her platform için en doğru yol.</p>
-<div class="svc">
-<div class="panel"><h3>YouTube</h3><p>Siteye gömülür, odada doğrudan oynar.</p><span class="tag">Hazır</span></div>
-<div class="panel"><h3>Kendi videoların</h3><p>Hakkı sana ait filmleri yükle, odada oynat.</p><span class="tag">Sunucu gerekir</span></div>
-<div class="panel"><h3>Netflix</h3><p>Netflix siteye gömülemez. Herkes kendi hesabından açar, sesli sohbet Loca'da kalır.</p><button class="btn" id="nf">Netflix'i aç</button></div>
-</div></section>
-<dialog id="dl"><h3 id="dt"></h3><input id="di" autocomplete="off"><div class="dr"><button class="btn" id="dc">Vazgeç</button><button class="btn fill" id="dok">Tamam</button></div></dialog>
-<div class="toast" id="ts" role="status"></div>
-<footer>Loca · Birlikte izleme odaları</footer>
-</div>
-
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
-var $=function(i){return document.getElementById(i)};
-function toast(t){var e=$('ts');e.textContent=t;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(function(){e.classList.remove('on')},2200)}
-var tabs=[],cur=0,room='Akşam Seansı',me='Raul';
-var quick=[["YouTube","Y","https://www.youtube.com/embed/aqz-KE-bpKQ","#e5586b"],["Wikipedia","W","https://en.m.wikipedia.org","#d8b878"],["Netflix","N","https://www.netflix.com","#b3203a"],["Google","G","https://www.google.com","#7aa2d8"]];
-function norm(v){v=v.trim();if(!v)return'';var m=v.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([\w-]{11})/);if(m)return'https://www.youtube.com/embed/'+m[1]+'?autoplay=1';
-if(/^https?:\/\//i.test(v))return v;if(/^[\w-]+(\.[\w-]+)+(\/.*)?$/.test(v))return'https://'+v;return''}
-function newTab(u){tabs.push({u:u||'',h:[]});cur=tabs.length-1;render()}
-function render(){var t=$('tabs');t.innerHTML='';tabs.forEach(function(x,i){var d=document.createElement('div');d.className='tab'+(i==cur?' on':'');var s=document.createElement('span');s.textContent=x.u?x.u.replace(/^https?:\/\/(www\.)?/,''):'Yeni sekme';s.onclick=function(){cur=i;render()};var c=document.createElement('b');c.textContent='×';c.onclick=function(){tabs.splice(i,1);if(!tabs.length)tabs.push({u:'',h:[]});cur=Math.min(cur,tabs.length-1);render()};d.appendChild(s);d.appendChild(c);t.appendChild(d)});
-var p=document.createElement('button');p.className='ib';p.textContent='+';p.setAttribute('aria-label','Yeni sekme');p.onclick=function(){newTab('')};t.appendChild(p);
-var x=tabs[cur],v=$('vp');v.innerHTML='';$('url').value=x.u;$('ext').href=x.u||'https://www.google.com';
-if(x.u){var f=document.createElement('iframe');f.src=x.u;f.title='Sayfa';f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;v.appendChild(f)}
-else{var st=document.createElement('div');st.className='start';st.innerHTML='<h2>Ne izlemek istersin?</h2><div class="tiles"></div>';var tl=st.querySelector('.tiles');
-quick.forEach(function(q){var b=document.createElement('button');b.className='tile';b.innerHTML='<i style="background:'+q[3]+'">'+q[1]+'</i>'+q[0];b.onclick=function(){go(q[2])};tl.appendChild(b)});v.appendChild(st)}}
-function go(u){var N=window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform();if(N&&u.indexOf('youtube.com/embed')<0){var B=Capacitor.Plugins&&Capacitor.Plugins.Browser;if(B)B.open({url:u});else window.open(u,'_blank');return}var x=tabs[cur];if(x.u)x.h.push(x.u);x.u=u;render();say('Loca','Açıldı: '+u.replace(/^https?:\/\/(www\.)?/,'').slice(0,40))}
-function submit(){var raw=$('url').value,u=norm(raw);if(u)go(u);else if(raw.trim()){window.open('https://www.google.com/search?q='+encodeURIComponent(raw.trim()),'_blank','noopener');toast('Arama yeni sekmede açıldı. Bulduğun bağlantıyı buraya yapıştır.')}}
-$('go').onclick=submit;$('url').onkeydown=function(e){if(e.key==='Enter')submit()};
-$('bk').onclick=function(){var x=tabs[cur];if(x.h.length){x.u=x.h.pop();render()}else{x.u='';render()}};
-$('hm').onclick=function(){tabs[cur].u='';render()};
-$('rl').onclick=function(){render()};
-$('fs').onclick=function(){var e=$('vp');if(e.requestFullscreen)e.requestFullscreen().catch(function(){toast('Tam ekran açılamadı')});else toast('Tam ekran desteklenmiyor')};
-$('nf').onclick=function(){window.open('https://www.netflix.com','_blank','noopener');toast('Netflix yeni sekmede açıldı')};
-newTab('https://www.youtube.com/embed/aqz-KE-bpKQ');
-var dlg=$('dl'),dcb=null;
-function ask(t,ph,val,cb){$('dt').textContent=t;$('di').placeholder=ph;$('di').value=val||'';dcb=cb;if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','');$('di').focus()}
-$('dc').onclick=function(){dlg.close()};
-$('dok').onclick=function(){var v=$('di').value.trim();if(v&&dcb)dcb(v);dlg.close()};
-$('di').onkeydown=function(e){if(e.key==='Enter')$('dok').click()};
-$('join').onclick=function(){ask('Giriş yap','Adın','',function(v){me=v;var el=$('nm0');if(el)el.textContent=v+' (sen)';$('join').textContent=v;toast('Hoş geldin, '+v)})};
-$('create').onclick=function(){ask('Yeni oda aç','Oda adı','',function(v){room=v;$('rm').textContent='Oda: '+v;say('Loca','Oda açıldı: '+v);toast('Oda hazır. Davet bağlantısını kopyalayabilirsin.')})};
-$('inv').onclick=function(){var l=location.href.split('#')[0]+'#'+encodeURIComponent(room);var ok=function(){toast('Davet bağlantısı kopyalandı')};
-try{navigator.clipboard.writeText(l).then(ok,function(){ask('Davet bağlantısı','',l,function(){})})}catch(e){ask('Davet bağlantısı','',l,function(){})}};
-var people=[["R","Raul"],["A","Aysel"],["E","Elvin"],["N","Nigar"]];
-var ul=document.getElementById('ppl');
-people.forEach(function(p,i){var l=document.createElement('li');l.innerHTML='<div class="av" id="av'+i+'">'+p[0]+'</div><div><span id="nm'+i+'">'+p[1]+(i==0?' (sen)':'')+'</span><small>'+(i==0?'Mikrofon kapalı':'Odada')+'</small></div>';ul.appendChild(l)});
-var chat=document.getElementById('chat');
-function say(n,m){var d=document.createElement('div');var b=document.createElement('b');b.textContent=n+': ';d.appendChild(b);d.appendChild(document.createTextNode(m));chat.appendChild(d);chat.scrollTop=chat.scrollHeight}
-say('Aysel','Başlıyoruz mu?');
-function sendMsg(){var i=document.getElementById('ci');if(i.value.trim()){say('Sen',i.value);i.value=''}}
-document.getElementById('send').onclick=sendMsg;
-document.getElementById('ci').onkeydown=function(e){if(e.key==='Enter')sendMsg()};
-var stream=null,ctx=null,raf=null,mic=document.getElementById('mic'),note=document.getElementById('micnote');
-mic.onclick=function(){
-if(stream){stream.getTracks().forEach(function(t){t.stop()});stream=null;cancelAnimationFrame(raf);mic.textContent='Mikrofonu aç';mic.classList.remove('on');document.getElementById('lvl').style.width='0';document.getElementById('av0').classList.remove('talk');return}
-try{navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){stream=s;ctx=new (window.AudioContext||window.webkitAudioContext)();var a=ctx.createAnalyser();a.fftSize=256;ctx.createMediaStreamSource(s).connect(a);var d=new Uint8Array(a.frequencyBinCount);
-mic.textContent='Mikrofonu kapat';mic.classList.add('on');note.textContent='Mikrofon açık. Çubuk sesini gösterir.';
-(function loop(){a.getByteFrequencyData(d);var v=d.reduce(function(x,y){return x+y},0)/d.length;document.getElementById('lvl').style.width=Math.min(100,v*2.2)+'%';document.getElementById('av0').classList.toggle('talk',v>18);raf=requestAnimationFrame(loop)})()
-}).catch(function(){note.textContent='Mikrofona erişilemedi. Tarayıcı ayarlarından izin ver.'})}catch(e){note.textContent='Bu tarayıcı mikrofonu desteklemiyor.'}};
+// ====== BURAYI DOLDUR: Firebase Console > Proje ayarlari > Web uygulamasi ======
+const FIREBASE_CONFIG={
+  apiKey:"AIzaSyBfVolF-f0Txd9VObSA8eRsASHKChEorTo",
+  authDomain:"planning-with-ai-892ea.firebaseapp.com",
+  projectId:"planning-with-ai-892ea",
+  storageBucket:"planning-with-ai-892ea.firebasestorage.app",
+  messagingSenderId:"854478238499",
+  appId:"1:854478238499:web:6a90cb916eb15e849d9296"
+};
+// ================================================================================
+const MAX=15,STALE=70000,CROWN='<svg class="crown" viewBox="0 0 24 24" fill="#ffd400"><path d="M3 18 2 7l5 4 5-7 5 7 5-4-1 11z"/><rect x="3" y="19" width="18" height="2.5" rx="1"/></svg>';
+let joined=false,lastShare=null,stream=null,vpc=null,myP={name:'',photo:''};const pcs={},PF={};let native=null,nl=[];
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fbOk=typeof firebase!=="undefined";
+const configured=fbOk&&FIREBASE_CONFIG.apiKey&&FIREBASE_CONFIG.apiKey!=="YOUR_API_KEY";
+let auth,db,FV,me=null,room=null,solo=false,unsubs=[],hb=null,curSrc='youtube',yt=null,curVid=null,applying=false,lastCd=0,lastRooms=[];
+if(configured){firebase.initializeApp(FIREBASE_CONFIG);auth=firebase.auth();db=firebase.firestore();FV=firebase.firestore.FieldValue;}
+else{$('#cfgwarn').hidden=false;if(!fbOk)$('#cfgwarn').textContent='Firebase dosyaları yüklenemedi (internet yok ya da bu ortamda engelli). Uygulamayı telefonda ya da normal tarayıcıda aç.';}
 
+function toast(t){const e=$('#toast');e.textContent=t;e.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>e.hidden=true,2600);}
+function view(v){['home','servers','room'].forEach(x=>$('#'+x).hidden=x!==v);$('#tabs').hidden=v==='room';document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));$('main').scrollTop=0;}
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>view(b.dataset.v));
+const sha=async s=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)))].map(b=>b.toString(16).padStart(2,'0')).join('');
+const live=r=>Object.entries(r.members||{}).filter(([,m])=>Date.now()-m.t<STALE);
+
+// ---------- Giris ----------
+async function googleLogin(){
+  if(!configured)return toast('Firebase ayarı eksik');
+  try{
+    const C=window.Capacitor,P=C&&C.Plugins&&C.Plugins.FirebaseAuthentication;
+    if(C&&C.isNativePlatform&&C.isNativePlatform()&&P){
+      const r=await P.signInWithGoogle({skipNativeAuth:true});
+      await auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(r.credential.idToken));
+    }else await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  }catch(e){toast('Giriş yapılamadı: '+(e.message||e.code||'hata'));}
+}
+const nm=()=>myP.name||(me&&me.displayName||'Misafir').split(' ')[0];
+async function prof(uid){if(PF[uid])return PF[uid];try{const d=await db.collection('users').doc(uid).get();PF[uid]=d.data()||{};}catch(e){PF[uid]={};}return PF[uid];}
+const avi=(p,n)=>p.photo?`<img src="${esc(p.photo)}" alt="">`:esc((n||'?')[0].toUpperCase());
+function drawAuth(){
+  const b=$('#auth'),ph=myP.photo||(me&&me.photoURL)||'';
+  b.innerHTML=me?(ph?`<img src="${esc(ph)}" alt="">`:'')+`<span>${esc(nm())}</span>`:'Google ile giriş';
+  b.onclick=()=>me?profileSheet():googleLogin();
+}
+function profileSheet(){
+  const s=$('#sheet');let photo=myP.photo;
+  s.innerHTML=`<div class="card"><h3>Profil</h3><div style="display:flex;align-items:center;gap:14px"><span class="av big" id="pv">${avi({photo:photo||me.photoURL},nm())}</span><label class="btn alt sm" style="cursor:pointer">Fotoğraf seç<input type="file" id="pf" accept="image/*" hidden></label></div><input id="pn" maxlength="20" placeholder="Kullanıcı adı" value="${esc(nm())}"><button class="btn" id="ps">Kaydet</button><button class="btn alt" id="po">Çıkış yap</button><button class="btn alt" id="px" style="border:0">Kapat</button></div>`;
+  s.hidden=false;s.onclick=e=>{if(e.target===s)s.hidden=true;};
+  $('#px').onclick=()=>s.hidden=true;
+  $('#pf').onchange=e=>{const f=e.target.files[0];if(!f)return;const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=96;const m=Math.min(im.width,im.height);c.getContext('2d').drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,96,96);photo=c.toDataURL('image/jpeg',.75);$('#pv').innerHTML=`<img src="${photo}" alt="">`;URL.revokeObjectURL(im.src);};im.src=URL.createObjectURL(f);};
+  $('#ps').onclick=async()=>{const name=$('#pn').value.trim().slice(0,20);if(name.length<2)return toast('Kullanıcı adı en az 2 karakter');
+    try{await db.collection('users').doc(me.uid).set({name,photo:photo||''});myP={name,photo:photo||''};PF[me.uid]={...myP};drawAuth();s.hidden=true;toast('Profil kaydedildi');}catch(e){toast('Kaydedilemedi');}};
+  $('#po').onclick=async()=>{s.hidden=true;if(room||solo)await leave();auth.signOut();};
+}
+if(configured)auth.onAuthStateChanged(async u=>{me=u;myP={name:'',photo:''};if(u){delete PF[u.uid];const p=await prof(u.uid);myP={name:p.name||'',photo:p.photo||''};}drawAuth();});else drawAuth();
+const needLogin=()=>{if(me)return false;toast('Oda açmak için önce Google ile giriş yap');return true;};
+
+// ---------- Ana ekran: kaynak secimi ----------
+document.querySelectorAll('.tile').forEach(t=>t.onclick=()=>{
+  const src=t.dataset.src,name=t.querySelector('b').textContent,s=$('#sheet');
+  s.innerHTML=`<div class="card"><h3>${esc(name)}</h3><button class="btn" id="s1">Oda kur</button><button class="btn alt" id="s2">Yalnız izle</button><button class="btn alt" id="s3" style="border:0">Vazgeç</button></div>`;
+  s.hidden=false;
+  s.onclick=e=>{if(e.target===s)s.hidden=true;};
+  $('#s3').onclick=()=>s.hidden=true;
+  $('#s2').onclick=()=>{s.hidden=true;openSolo(src);};
+  $('#s1').onclick=()=>{if(needLogin())return;s.hidden=true;createDialog(src);};
+});
+
+// ---------- Oda olustur ----------
+function createDialog(src){
+  let priv=false;const d=$('#dlg');
+  d.innerHTML=`<div class="card"><h3>Yeni oda</h3><input id="n" placeholder="Oda adı" maxlength="40"><div class="seg"><button class="g on" id="pg">Herkese açık</button><button class="r" id="pr">Parolalı</button></div><input id="p" placeholder="Parola" type="password" maxlength="40" hidden><button class="btn" id="ok">Odayı aç</button><button class="btn alt" id="no" style="border:0">Vazgeç</button></div>`;
+  d.hidden=false;
+  const set=v=>{priv=v;$('#pg').classList.toggle('on',!v);$('#pr').classList.toggle('on',v);$('#p').hidden=!v;};
+  $('#pg').onclick=()=>set(false);$('#pr').onclick=()=>set(true);
+  $('#no').onclick=()=>d.hidden=true;
+  $('#ok').onclick=async()=>{
+    const name=$('#n').value.trim(),pw=$('#p').value;
+    if(!name)return toast('Oda adı yaz');
+    if(priv&&pw.length<3)return toast('Parola en az 3 karakter olmalı');
+    try{
+      const ref=db.collection('rooms').doc();
+      const data={name,src,priv,ownerId:me.uid,ownerName:nm(),created:Date.now(),members:{},muted:{},banned:{},sharing:null,video:null,state:null,cd:null};
+      if(priv)data.ph=await sha(pw+ref.id);
+      await ref.set(data);d.hidden=true;
+      await enter(ref.id,pw);
+    }catch(e){toast('Oda açılamadı: '+(e.message||'hata'));}
+  };
+}
+
+// ---------- Sunucular ----------
+function drawList(){
+  const el=$('#list'),rs=lastRooms.filter(r=>Math.max(r.created,...Object.values(r.members||{}).map(m=>m.t))>Date.now()-1800000);
+  if(!rs.length){el.innerHTML='<div class="empty">Şu an açık oda yok. İlk odayı sen kur.</div>';return;}
+  el.innerHTML=rs.map(r=>{const n=live(r).length;return `<button class="room ${r.priv?'prv':'pub'}" data-id="${esc(r.id)}"><span class="lk">${r.priv
+   ?'<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6 10V8a6 6 0 0 1 12 0v2h1v12H5V10zm2 0h8V8a4 4 0 0 0-8 0z"/></svg>'
+   :'<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17 10h2v12H5V10h10V8a3 3 0 0 0-6 0H7a5 5 0 0 1 10 0z"/></svg>'}</span><span><b>${esc(r.name)}</b><small>${esc(r.ownerName)} · ${esc(r.src)}</small></span><span class="cnt">${n}/${MAX}</span></button>`;}).join('');
+  el.querySelectorAll('.room').forEach(b=>b.onclick=()=>{
+    if(needLogin())return;const r=lastRooms.find(x=>x.id===b.dataset.id);
+    if(!r.priv)return enter(r.id,'');
+    const d=$('#dlg');d.innerHTML=`<div class="card"><h3>${esc(r.name)}</h3><input id="pw" type="password" placeholder="Parola"><button class="btn" id="ok">Katıl</button><button class="btn alt" id="no" style="border:0">Vazgeç</button></div>`;d.hidden=false;
+    $('#no').onclick=()=>d.hidden=true;
+    $('#ok').onclick=async()=>{const pw=$('#pw').value;if(await enter(r.id,pw))d.hidden=true;};
+  });
+}
+if(configured)db.collection('rooms').orderBy('created','desc').limit(50).onSnapshot(s=>{lastRooms=s.docs.map(d=>({id:d.id,...d.data()}));drawList();},e=>{$('#list').innerHTML='<div class="empty">Liste yüklenemedi.</div>';});
+else drawList();
+setInterval(()=>{if(!$('#servers').hidden)drawList();},20000);
+$('#mk').onclick=()=>{if(needLogin())return;createDialog('youtube');};
+
+// ---------- Odaya gir / cik ----------
+async function enter(id,pw){
+  try{
+    const ref=db.collection('rooms').doc(id),h=pw?await sha(pw+id):'';
+    await db.runTransaction(async tx=>{
+      const d=await tx.get(ref);if(!d.exists)throw Error('Oda bulunamadı');
+      const r=d.data();
+      if(r.banned&&r.banned[me.uid])throw Error('Bu odadan yasaklandın');
+      if(r.priv&&r.ph!==h)throw Error('Parola yanlış');
+      if(live(r).filter(([k])=>k!==me.uid).length>=MAX)throw Error('Oda dolu ('+MAX+'/'+MAX+')');
+      tx.update(ref,{['members.'+me.uid]:{n:nm(),t:Date.now()}});
+    });
+    solo=false;room={id};joined=false;lastShare=null;
+    setupRoomUI(false);
+    unsubs.push(ref.onSnapshot(s=>{if(!s.exists){toast('Oda kapatıldı');leave();return;}onRoom({id:s.id,...s.data()});}));
+    unsubs.push(ref.collection('chat').orderBy('t').limitToLast(60).onSnapshot(s=>drawChat(s.docs.map(d=>d.data()))));
+    unsubs.push(ref.collection('sig').where('to','==',me.uid).onSnapshot(q=>q.docChanges().forEach(c=>{if(c.type!=='added')return;const m=c.doc.data();c.doc.ref.delete().catch(()=>{});if(Date.now()-m.t<40000)sig(m);})));
+    hb=setInterval(()=>room&&room.members&&room.members[me.uid]&&ref.update({['members.'+me.uid+'.t']:Date.now()}).catch(()=>{}),20000);
+    return true;
+  }catch(e){toast(e.message||'Katılınamadı');return false;}
+}
+function openSolo(src){solo=true;room=null;curSrc=src;setupRoomUI(true);$('#rname').textContent='Yalnız izle';}
+function setupRoomUI(isSolo){
+  view('room');curVid=null;yt=null;
+  $('#chat').innerHTML='';$('#cf').hidden=isSolo;$('#chat').hidden=isSolo;$('#rcnt').hidden=isSolo;
+  $('#stage').innerHTML='<div class="ph">Bir YouTube linki yapıştır ve “Aç”a bas.</div>';
+  $('#link').value='';$('#link').parentElement.hidden=false;delete $('#stage').dataset.nf;$('#xtra').hidden=true;
+  if(isSolo&&curSrc==='netflix'){$('#link').parentElement.hidden=true;$('#xtra').hidden=false;$('#xtra').innerHTML='<button class="btn sm" id="nf">Netflix’i aç</button>';$('#nf').onclick=()=>window.open('https://www.netflix.com','_system');$('#stage').innerHTML='<div class="ph">Netflix kendi hesabınla açılır.</div>';}
+  if(isSolo&&curSrc==='google'){$('#xtra').hidden=false;$('#xtra').innerHTML='<button class="btn alt sm" id="gs">Google’da video ara</button>';$('#gs').onclick=()=>window.open('https://www.google.com/search?tbm=vid&q=youtube','_system');}
+}
+async function leave(){
+  unsubs.forEach(u=>u());unsubs=[];clearInterval(hb);
+  rtcStop();const had=room;room=null;$('#seats').innerHTML='';$('#tv').classList.remove('full');
+  if(had&&me&&db){
+    try{
+      const ref=db.collection('rooms').doc(had.id),d=await ref.get();
+      if(d.exists){
+        const r=d.data(),others=live(r).filter(([k])=>k!==me.uid);
+        if(!others.length&&r.ownerId===me.uid)await ref.delete();
+        else await ref.update(r.ownerId===me.uid?{['members.'+me.uid]:FV.delete(),sharing:null}:{['members.'+me.uid]:FV.delete()});
+      }
+    }catch(e){}
+  }
+  try{yt&&yt.destroy&&yt.destroy();}catch(e){}
+  const wasSolo=solo;yt=null;curVid=null;solo=false;view(wasSolo?'home':'servers');
+}
+$('#back').onclick=()=>solo?leave():leave();
+addEventListener('pagehide',()=>{if(room&&me)db.collection('rooms').doc(room.id).update({['members.'+me.uid]:FV.delete()}).catch(()=>{});});
+
+// ---------- Oda icerigi ----------
+function onRoom(r){
+  room=r;curSrc=r.src;
+  if(r.members&&r.members[me.uid])joined=true;
+  else if(joined){toast('Odadan çıkarıldın');leave();return;}
+  $('#rname').textContent=r.name;
+  $('#rcnt').textContent=live(r).length+'/'+MAX;
+  if(r.sharing!==lastShare){lastShare=r.sharing||null;
+    if(r.sharing&&r.sharing!==me.uid)send(r.sharing,'hello');
+    if(!r.sharing&&!stream)rtcStop(true);}
+  seats(r);extras(r);
+  if(r.cd&&r.cd.at!==lastCd&&r.cd.at>Date.now()-1500){lastCd=r.cd.at;countdown(r.cd.at);}
+  if(r.sharing)return;
+  if(r.video&&r.video!==curVid)mount(r.video,()=>applyState(r.state));
+  else if(r.state)applyState(r.state);
+}
+function seats(r){
+  const ids=live(r).map(([k])=>k).sort((a,b)=>(b===r.ownerId)-(a===r.ownerId));
+  $('#seats').innerHTML=ids.map(id=>{const p=PF[id]||{},h=id===r.ownerId,n=p.name||r.members[id].n||'?';
+    return `<button class="seat" data-u="${esc(id)}">${h?CROWN:''}<span class="av">${avi(p,n)}</span><small class="${h?'hn':''}">${esc(n)}${r.muted&&r.muted[id]?' 🔇':''}</small></button>`;}).join('');
+  ids.filter(i=>!PF[i]).forEach(i=>prof(i).then(()=>room&&seats(room)));
+  document.querySelectorAll('.seat').forEach(b=>b.onclick=()=>{if(me&&r.ownerId===me.uid&&b.dataset.u!==me.uid)modSheet(b.dataset.u);});
+}
+function modSheet(id){
+  const r=room,s=$('#sheet'),mu=r.muted&&r.muted[id],ref=db.collection('rooms').doc(r.id),n=(PF[id]||{}).name||'Kullanıcı';
+  s.innerHTML=`<div class="card"><h3>${esc(n)}</h3><button class="btn alt" id="m1">${mu?'Susturmayı kaldır':'Sustur (sohbet)'}</button><button class="btn alt" id="m2">Odadan at</button><button class="btn" id="m3" style="background:var(--no);color:#fff">Yasakla</button><button class="btn alt" id="m4" style="border:0">Vazgeç</button></div>`;
+  s.hidden=false;s.onclick=e=>{if(e.target===s)s.hidden=true;};
+  const go=u=>{s.hidden=true;ref.update(u).catch(()=>toast('İşlem yapılamadı'));};
+  $('#m4').onclick=()=>s.hidden=true;
+  $('#m1').onclick=()=>go({['muted.'+id]:mu?FV.delete():true});
+  $('#m2').onclick=()=>go({['members.'+id]:FV.delete()});
+  $('#m3').onclick=()=>go({['banned.'+id]:true,['members.'+id]:FV.delete()});
+}
+function extras(r){
+  const x=$('#xtra'),host=me&&r.ownerId===me.uid;x.innerHTML='';let any=false;
+  const add=(id,t,cls,fn)=>{x.insertAdjacentHTML('beforeend',`<button class="btn ${cls} sm" id="${id}">${t}</button>`);$('#'+id).onclick=fn;any=true;};
+  if(host)add('sh',stream?'Paylaşımı durdur':'Ekran paylaş',stream?'alt':'',stream?shareStop:shareStart);
+  if(r.src==='netflix'){
+    add('nf','Netflix’i aç','alt',()=>window.open('https://www.netflix.com','_system'));
+    add('cd','Birlikte başlat (5 sn)','',()=>db.collection('rooms').doc(r.id).update({cd:{at:Date.now()+5000,by:me.uid}}));
+    $('#link').parentElement.hidden=true;
+    if(!r.sharing&&!$('#stage').dataset.nf){$('#stage').dataset.nf=1;$('#stage').innerHTML='<div class="ph">Netflix kendi hesabınla açılır. Filmi aç, “Birlikte başlat” ile herkes aynı anda oynatsın.</div>';}
+  }else if(r.src==='google')add('gs','Google’da video ara','alt',()=>window.open('https://www.google.com/search?tbm=vid&q=youtube','_system'));
+  x.hidden=!any;
+}
+// ---------- Ekran paylasimi (WebRTC) ----------
+const ICE={iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'}]};
+const send=(to,type,data)=>db.collection('rooms').doc(room.id).collection('sig').add({from:me.uid,to,type,data:JSON.stringify(data||{}),t:Date.now()}).catch(()=>{});
+function showStream(st,mine){
+  yt=null;curVid=null;const g=$('#stage');delete g.dataset.nf;
+  g.innerHTML='<video id="sv" autoplay playsinline'+(mine?' muted':'')+'></video>';
+  const v=$('#sv');v.srcObject=st;v.play().catch(()=>toast('Oynatmak için ekrana dokun'));v.onclick=()=>v.play();
+}
+async function nativeShare(SS){
+  const cv=document.createElement('canvas'),x=cv.getContext('2d');cv.width=960;cv.height=540;
+  stream=cv.captureStream(10);native=SS;
+  nl=[SS.addListener('frame',f=>{const im=new Image();im.onload=()=>{if(cv.width!==f.w){cv.width=f.w;cv.height=f.h;}x.drawImage(im,0,0);};im.src='data:image/jpeg;base64,'+f.d;}),SS.addListener('stopped',()=>shareStop())];
+  await SS.start();
+}
+async function shareStart(){
+  const C=window.Capacitor,SS=C&&C.isNativePlatform&&C.isNativePlatform()&&C.Plugins&&C.Plugins.ScreenShare;
+  if(SS){
+    try{await nativeShare(SS);yt=null;curVid=null;$('#stage').innerHTML='<div class="ph">Ekranın paylaşılıyor. Başka uygulamaya geçebilirsin.</div>';
+      await db.collection('rooms').doc(room.id).update({sharing:me.uid});extras(room);}
+    catch(e){rtcStop();toast('Ekran paylaşımı başlatılamadı');}
+    return;
+  }
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getDisplayMedia)return toast('Bu cihaz ekran paylaşımını desteklemiyor. Bilgisayar tarayıcısından dene.');
+  try{
+    stream=await navigator.mediaDevices.getDisplayMedia({video:true,audio:true});
+    stream.getVideoTracks()[0].onended=shareStop;
+    showStream(stream,true);
+    await db.collection('rooms').doc(room.id).update({sharing:me.uid});
+    extras(room);
+  }catch(e){stream=null;toast('Ekran paylaşımı başlatılamadı');}
+}
+function shareStop(){
+  rtcStop(true);
+  if(room)db.collection('rooms').doc(room.id).update({sharing:null}).catch(()=>{});
+  if(room)extras(room);
+}
+function rtcStop(reset){
+  if(native){const n=native;native=null;n.stop().catch(()=>{});nl.forEach(h=>Promise.resolve(h).then(x=>x.remove()).catch(()=>{}));nl=[];}
+  if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;}
+  Object.values(pcs).forEach(c=>c.close());Object.keys(pcs).forEach(k=>delete pcs[k]);
+  if(vpc){vpc.close();vpc=null;}
+  if(reset){$('#stage').innerHTML='<div class="ph">Bir YouTube linki yapıştır ve “Aç”a bas.</div>';delete $('#stage').dataset.nf;yt=null;curVid=null;if(room&&room.video)setTimeout(()=>room&&!room.sharing&&onRoom(room),50);}
+}
+const flush=c=>{(c._q||[]).forEach(i=>c.addIceCandidate(i).catch(()=>{}));c._q=[];};
+const addIce=(c,i)=>c&&(c.remoteDescription?c.addIceCandidate(i).catch(()=>{}):(c._q=c._q||[]).push(i));
+async function sig(m){
+  const d=JSON.parse(m.data||'{}');
+  try{
+    if(m.type==='hello'&&stream&&room.ownerId===me.uid){
+      if(pcs[m.from])pcs[m.from].close();
+      const c=pcs[m.from]=new RTCPeerConnection(ICE);
+      stream.getTracks().forEach(t=>c.addTrack(t,stream));
+      c.onicecandidate=e=>e.candidate&&send(m.from,'ice',e.candidate.toJSON());
+      await c.setLocalDescription(await c.createOffer());
+      send(m.from,'offer',{type:c.localDescription.type,sdp:c.localDescription.sdp});
+    }else if(m.type==='offer'){
+      if(vpc)vpc.close();
+      const c=vpc=new RTCPeerConnection(ICE);
+      c.ontrack=e=>showStream(e.streams[0],false);
+      c.onicecandidate=e=>e.candidate&&send(m.from,'ice',e.candidate.toJSON());
+      await c.setRemoteDescription(d);flush(c);
+      await c.setLocalDescription(await c.createAnswer());
+      send(m.from,'answer',{type:c.localDescription.type,sdp:c.localDescription.sdp});
+    }else if(m.type==='answer'&&pcs[m.from]){await pcs[m.from].setRemoteDescription(d);flush(pcs[m.from]);}
+    else if(m.type==='ice')addIce(room&&room.ownerId===me.uid?pcs[m.from]:vpc,d);
+  }catch(e){}
+}
+$('#fs').onclick=()=>$('#tv').classList.toggle('full');
+function countdown(at){
+  const t=setInterval(()=>{const s=Math.ceil((at-Date.now())/1000);if(s<=0){clearInterval(t);toast('Şimdi oynat!');}else toast(String(s));},250);
+}
+function ytId(s){s=s.trim();const m=s.match(/(?:v=|youtu\.be\/|embed\/|shorts\/|live\/)([\w-]{11})/);return m?m[1]:(/^[\w-]{11}$/.test(s)?s:null);}
+$('#go').onclick=async()=>{
+  const id=ytId($('#link').value);if(!id)return toast('Geçerli bir YouTube linki yapıştır');
+  if(room)await db.collection('rooms').doc(room.id).update({video:id,state:{playing:true,time:0,by:'',at:Date.now()}});
+  else mount(id,()=>{});
+  $('#link').value='';
+};
+function loadYT(cb){
+  if(window.YT&&YT.Player)return cb();
+  window.onYouTubeIframeAPIReady=cb;
+  if(!document.getElementById('ytapi')){const s=document.createElement('script');s.id='ytapi';s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s);}
+}
+function mount(id,done){
+  curVid=id;
+  loadYT(()=>{
+    if(yt&&yt.loadVideoById){yt.loadVideoById(id);setTimeout(done,1200);return;}
+    $('#stage').innerHTML='<div id="yt"></div>';
+    yt=new YT.Player('yt',{videoId:id,playerVars:{playsinline:1,rel:0},events:{onReady:()=>setTimeout(done,500),onStateChange:onYT}});
+  });
+}
+function onYT(e){
+  if(applying||!room||!me)return;
+  if(e.data===1||e.data===2)db.collection('rooms').doc(room.id).update({state:{playing:e.data===1,time:yt.getCurrentTime(),by:me.uid,at:Date.now()}}).catch(()=>{});
+}
+function applyState(st){
+  if(!st||!yt||!yt.seekTo||st.by===(me&&me.uid))return;
+  applying=true;
+  const late=st.playing?Math.min(Math.max((Date.now()-st.at)/1000,0),10):0,t=st.time+late;
+  try{
+    if(Math.abs(yt.getCurrentTime()-t)>1.5)yt.seekTo(t,true);
+    st.playing?yt.playVideo():yt.pauseVideo();
+  }catch(e){}
+  setTimeout(()=>applying=false,900);
+}
+
+// ---------- Sohbet ----------
+function drawChat(ms){
+  const c=$('#chat'),o=room&&room.ownerId;
+  c.innerHTML=ms.map(m=>`<div class="msg ${me&&m.uid===me.uid?'me':''}"><small class="${m.uid===o?'hn':''}">${m.uid===o?CROWN:''}${esc(m.n)}</small>${esc(m.x)}</div>`).join('');
+  c.scrollTop=c.scrollHeight;
+}
+$('#cf').onsubmit=e=>{
+  e.preventDefault();const x=$('#ci').value.trim();if(!x||!room||!me)return;if(room.muted&&room.muted[me.uid])return toast('Host seni susturdu');
+  $('#ci').value='';
+  db.collection('rooms').doc(room.id).collection('chat').add({uid:me.uid,n:nm(),x,t:Date.now()}).catch(()=>toast('Mesaj gönderilemedi'));
+};
 </script>
 </body>
 </html>
