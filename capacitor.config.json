@@ -1,1 +1,11 @@
-{"appId":"com.loca.app","appName":"Loca","webDir":"www","backgroundColor":"#120a0e"}
+{
+  "appId": "com.locaa.app",
+  "appName": "Loca",
+  "webDir": "www",
+  "plugins": {
+    "FirebaseAuthentication": {
+      "skipNativeAuth": true,
+      "providers": ["google.com"]
+    }
+  }
+}
